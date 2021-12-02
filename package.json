@@ -1,0 +1,28 @@
+{
+  "name": "shaked",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "tap \"test/**/*.test.js\"",
+    "start": "fastify start -l info app.js",
+    "dev": "fastify start -w -l info -P app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cacheable-lookup": "^6.0.4",
+    "fastify": "^3.0.0",
+    "fastify-autoload": "^3.3.1",
+    "fastify-cli": "^2.13.0",
+    "fastify-plugin": "^3.0.0",
+    "fastify-sensible": "^3.1.0"
+  },
+  "devDependencies": {
+    "tap": "^15.0.9"
+  }
+}
