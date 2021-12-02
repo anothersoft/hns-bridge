@@ -18,7 +18,7 @@ module.exports = async function (fastify, opts) {
 			}
 		}
 	);
-	fastify.all("*", async function (request, reply) {
+	fastify.all("*", function (request, reply) {
 		let hnsName = request.hostname;
 		// hnsName = "fsdfjsjfsdfsdfs7dsfs6fsjkal.shaked.xyz"
 		// 	.split(".")
