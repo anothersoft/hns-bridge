@@ -19,7 +19,7 @@ module.exports = async function (fastify, opts) {
 		}
 	);
 	fastify.all("*", function (request, reply) {
-		let hnsName = request.hostname;
+		let hnsName = request.hostname.split(".").slice(0, -2).join(".");
 		// hnsName = "fsdfjsjfsdfsdfs7dsfs6fsjkal.shaked.xyz"
 		// 	.split(".")
 		// 	.slice(0, -2)
@@ -31,7 +31,7 @@ module.exports = async function (fastify, opts) {
 				"https://github.com/angrymouse/shaked-hns-bridge"
 			);
 		let headers = request.headers;
-		headers["x-real-ip"] = request.ip;
+
 		delete headers.host;
 		try {
 			let resource = http.request(
