@@ -14,6 +14,9 @@ Also you can buy one of my domains: [hnsware/](https://www.namebase.io/domains/h
 
 Thanks everyone who supports me! I need your money-support because I need to run the "main" mirror of this project (shaked.xyz itself)
 
-## How to deplo your own bridge?
+## How to deploy your own bridge?
 
 Easy! Just clone this repo, then go to the project directory, then type ``npm install`` in command line, then edit config.json as you like, point a domain to your IP, and enjoy!
+
+
+### **Kindly sponsored & supported by [<img src="https://handyhost.computer/static/media/logo.2302906c.svg" alt="drawing" width="100"/>](https://handyhost.computer)**
