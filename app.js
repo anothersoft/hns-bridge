@@ -1,4 +1,4 @@
-let fastify = require("fastify")({});
+let fastify = require("fastify")({ logger: false });
 const path = require("path");
 const AutoLoad = require("fastify-autoload");
 const config = require("./config.json");
@@ -21,4 +21,4 @@ fastify.register(AutoLoad, {
 	dir: path.join(__dirname, "routes"),
 	options: Object.assign({}, {}),
 });
-fastify.listen(config.port);
+fastify.listen(config.port, "0.0.0.0");

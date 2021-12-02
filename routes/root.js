@@ -41,7 +41,7 @@ module.exports = async function (fastify, opts) {
 					lookup: cacheable.lookup,
 
 					method: request.method,
-					path: request.path,
+					path: request.url,
 				},
 				(res) => {
 					reply.raw.writeHead(res.statusCode, res.headers);
