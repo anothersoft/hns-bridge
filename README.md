@@ -17,4 +17,4 @@ Thanks everyone who supports me! I need your money-support because I need to run
 ## How to deploy your own bridge?
 
 Easy! Just clone this repo, then go to the project directory, then type ``npm install`` in command line, then edit config.json as you like, point a domain to your IP, and enjoy!
-Kindly sponsored & supported by [https://handyhost.computer](![](https://handyhost.computer/static/media/logo.2302906c.svg))
+Kindly sponsored & supported by [![](https://handyhost.computer/static/media/logo.2302906c.svg)](https://handyhost.computer)
