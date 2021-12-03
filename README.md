@@ -12,7 +12,7 @@ Just type ``<handshake-domain>.shaked.xyz`` in your browser page, and done! You'
 ## How to support developer?
 
 My handshake address is ``hs1ql2pfxgenmvmzaffkf7nk6y4f65nwl37z9z0fad``, you can donate some HNS if you liked my development.
-Also you can buy one of my domains: [hnsware/](https://www.namebase.io/domains/hnsware), [веб-страница/](https://www.namebase.io/domains/xn----8sbabesy3bzajl6c), [🔴💩/](https://www.namebase.io/domains/xn--ls8hvi), [💩🔴/](https://www.namebase.io/domains/xn--ls8hwi)
+Also you can buy one of my domains: [cbro/](https://www.namebase.io/domains/cbro), [веб-страница/](https://www.namebase.io/domains/xn----8sbabesy3bzajl6c), [🔴💩/](https://www.namebase.io/domains/xn--ls8hvi), [💩🔴/](https://www.namebase.io/domains/xn--ls8hwi)
 
 Thanks everyone who supports me! I need your money-support because I need to run the "main" mirror of this project (shaked.xyz itself)
 
