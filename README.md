@@ -7,7 +7,7 @@ A "quick and dirty" open source alternative to hns.to
 ## How to use?
 
 If you want to access [handshake](https://handshake.org) domain, but don't want to install additional software - you're welcome!
-Just type ``<handshake-domain>.shaked.xyz`` in your browser page, and done! You're browsing handshake website!
+Just type ``<handshake-domain>.hns.is`` in your browser page, and done! You're browsing handshake website!
 
 ## How to support developer?
 
