@@ -3,5 +3,6 @@
         "103.196.38.38",
         "103.196.38.39"
     ],
-    "port": 8888
+    "port": 8888,
+    "defaultRedirect": "https://angrymouse.hns.is"
 }

@@ -26,10 +26,7 @@ module.exports = async function (fastify, opts) {
 		// 	.join(".");
 
 		if (hnsName == "")
-			return reply.redirect(
-				301,
-				"https://github.com/angrymouse/shaked-hns-bridge"
-			);
+			return reply.redirect(301, require("../config.json").defaultRedirect);
 		let headers = request.headers;
 
 		delete headers.host;
