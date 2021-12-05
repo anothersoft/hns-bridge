@@ -28,6 +28,8 @@ Great thanks to [HandyHost](https://handyhost.computer)
 ### **[Kindly sponsored & supported by <img src="https://handyhost.computer/static/media/logo.2302906c.svg" alt="drawing" width="100"/>](https://handyhost.computer)**
 
 
+
+
 Thanks to [*phillippe/*](https://phillippe.hns.is) for hns.is domain!
 
 Thanks to [**c0n0r/**](https://c0n0r.hns.is) for buying my domains in large amounts.
