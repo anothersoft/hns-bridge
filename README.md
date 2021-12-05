@@ -34,6 +34,6 @@ Thanks to [*phillippe/*](https://phillippe.hns.is) for hns.is domain!
 
 Thanks to [**c0n0r/**](https://c0n0r.hns.is) for buying my domains in large amounts.
 
-Also thanks for [**tiMaxal/**] for buying all of my cheap domains!
+Also thanks for [**tiMaxal/**](https://timaxal.hns.is) for buying all of my cheap domains!
 
 And [@HNSOSS](https://twitter.com/HNSOSS) for giving grants and supporting all developers of HNS ecosystem!
