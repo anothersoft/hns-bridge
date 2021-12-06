@@ -5,7 +5,8 @@
     ],
     "port": 8888,
     "domainMap": {
-        "hns.is": "."
+        "hns.is": ".",
+        "3dom.rocks": ".3dom"
     },
     "rootRedirect": "https://angrymouse.hns.is/"
 }
