@@ -1,9 +1,9 @@
 const http = require("http");
 const CacheableLookup = require("cacheable-lookup");
-
+const config = require("../config.json");
 const cacheable = new CacheableLookup();
 cacheable.install(http.globalAgent);
-cacheable.servers = require("../config.json").nameservers;
+cacheable.servers = config.nameservers;
 
 module.exports = async function (fastify, opts) {
 	fastify.addContentTypeParser(
@@ -19,14 +19,19 @@ module.exports = async function (fastify, opts) {
 		}
 	);
 	fastify.all("*", function (request, reply) {
-		let hnsName = request.hostname.split(".").slice(0, -2).join(".");
-		// hnsName = "fsdfjsjfsdfsdfs7dsfs6fsjkal.shaked.xyz"
-		// 	.split(".")
-		// 	.slice(0, -2)
-		// 	.join(".");
+		let hostname = request.hostname; //I really need it for debug, don't remove and make PR!!!
+		let domainMapArray = Object.keys(config.domainMap);
+		domainMapArray.sort((a, b) => b.length - a.length);
+		let targetDomain = domainMapArray.find((domain) =>
+			hostname.endsWith(domain)
+		);
+
+		let hnsName =
+			hostname.slice(0, hostname.length - targetDomain.length - 1) + //"-1" means remove "."
+			config.domainMap[targetDomain];
 
 		if (hnsName == "")
-			return reply.redirect(301, require("../config.json").defaultRedirect);
+			return reply.redirect(301, require("../config.json").rootRedirect);
 		let headers = request.headers;
 
 		delete headers.host;

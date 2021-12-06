@@ -4,5 +4,8 @@
         "103.196.38.39"
     ],
     "port": 8888,
-    "defaultRedirect": "https://angrymouse.hns.is"
+    "domainMap": {
+        "hns.is": "."
+    },
+    "rootRedirect": "https://angrymouse.hns.is/"
 }
