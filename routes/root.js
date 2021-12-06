@@ -25,7 +25,7 @@ module.exports = async function (fastify, opts) {
 		let targetDomain = domainMapArray.find((domain) =>
 			hostname.endsWith(domain)
 		);
-		if (!domain || !targetDomain) {
+		if (!hostname || !targetDomain) {
 			return reply.redirect(301, require("../config.json").rootRedirect);
 		}
 		let hnsName =
