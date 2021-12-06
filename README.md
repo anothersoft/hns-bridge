@@ -9,6 +9,10 @@ A "quick and dirty" open source alternative to hns.to
 If you want to access [handshake](https://handshake.org) domain, but don't want to install additional software - you're welcome!
 Just type ``<handshake-domain>.hns.is`` in your browser page, and done! You're browsing handshake website!
 
+## Wanna get own bridge for your staked domain?
+
+DM me on twitter, [@angrymouse_hns](https://twitter.com/angrymouse_hns)
+
 ## How to support developer?
 
 My handshake address is ``hs1ql2pfxgenmvmzaffkf7nk6y4f65nwl37z9z0fad``, you can donate some HNS if you liked my development.
