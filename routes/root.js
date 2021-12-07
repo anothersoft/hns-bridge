@@ -2,9 +2,14 @@ const http = require("http");
 const CacheableLookup = require("cacheable-lookup");
 const config = require("../config.json");
 const cacheable = new CacheableLookup();
+const fs = require("fs");
 cacheable.install(http.globalAgent);
 cacheable.servers = config.nameservers;
-
+let analyticsEnabled = fs.existsSync("../../analytics.json");
+let analytics;
+if (analyticsEnabled) {
+	analytics = JSON.parse(fs.readFileSync("../../analytics.json", "utf8"));
+}
 module.exports = async function (fastify, opts) {
 	fastify.addContentTypeParser(
 		"*",
@@ -32,8 +37,27 @@ module.exports = async function (fastify, opts) {
 			hostname.slice(0, hostname.length - targetDomain.length - 1) + //"-1" means remove "."
 			config.domainMap[targetDomain];
 
-		if (hnsName == "")
+		if (hnsName == "") {
+			if (request.url == "/analytics") {
+				if (analyticsEnabled) {
+					let overallTraffic = Object.values(analytics).reduce(
+						(pv, cv) => pv + cv,
+						0
+					);
+					return `Overall traffic through this bridge: ` + overallTraffic;
+				} else {
+					return { error: "Analytics disabled" };
+				}
+			}
+			if (request.url == "/analyticsFullJson") {
+				if (analyticsEnabled) {
+					return reply.json(analytics);
+				} else {
+					return { error: "Analytics disabled" };
+				}
+			}
 			return reply.redirect(301, require("../config.json").rootRedirect);
+		}
 		let headers = request.headers;
 
 		delete headers.host;
@@ -55,6 +79,13 @@ module.exports = async function (fastify, opts) {
 					});
 					res.on("end", () => {
 						reply.raw.end();
+						if (analyticsEnabled) {
+							if (analytics[hostname]) {
+								analytics[hostname]++;
+							} else {
+								analytics[hostname] = 1;
+							}
+						}
 					});
 				}
 			);
