@@ -5,10 +5,19 @@ const cacheable = new CacheableLookup();
 const fs = require("fs");
 cacheable.install(http.globalAgent);
 cacheable.servers = config.nameservers;
-let analyticsEnabled = fs.existsSync("../../analytics.json");
+let path = require("path");
+let analyticsEnabled = fs.existsSync(
+	path.join(__dirname, "../../analytics.json")
+);
 let analytics;
 if (analyticsEnabled) {
-	analytics = JSON.parse(fs.readFileSync("../../analytics.json", "utf8"));
+	analytics = JSON.parse(path.join(__dirname, "../../analytics.json"));
+	setInterval(() => {
+		fs.writeFileSync(
+			path.join(__dirname, "../../analytics.json"),
+			JSON.stringify(analytics)
+		);
+	}, 60000);
 }
 module.exports = async function (fastify, opts) {
 	fastify.addContentTypeParser(
