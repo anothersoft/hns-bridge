@@ -34,7 +34,7 @@ module.exports = async function (fastify, opts) {
 			return reply.redirect(301, require("../config.json").rootRedirect);
 		}
 		let hnsName =
-			hostname.slice(0, hostname.length - targetDomain.length - 1) + //"-1" means remove "."
+			hostname.slice(0, hostname.length - targetDomain.length) + //"-1" means remove "."
 			config.domainMap[targetDomain];
 		console.log(hnsName);
 		if (hnsName == "") {
