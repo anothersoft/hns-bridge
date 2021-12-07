@@ -41,3 +41,5 @@ Thanks to [**c0n0r/**](https://c0n0r.hns.is) for buying my domains in large amou
 Also thanks for [**tiMaxal/**](https://timaxal.hns.is) for buying all of my cheap domains!
 
 And [@HNSOSS](https://twitter.com/HNSOSS) for giving grants and supporting all developers of HNS ecosystem!
+
+And [Inner I Net Company/](https://innerinetcompany.com) for donations!
