@@ -62,7 +62,7 @@ module.exports = async function (fastify, opts) {
 			}
 			if (request.url == "/analyticsFullJson") {
 				if (analyticsEnabled) {
-					return reply.json(analytics);
+					return analytics;
 				} else {
 					return { error: "Analytics disabled" };
 				}
