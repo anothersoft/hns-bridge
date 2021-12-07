@@ -36,7 +36,7 @@ module.exports = async function (fastify, opts) {
 		let hnsName =
 			hostname.slice(0, hostname.length - targetDomain.length - 1) + //"-1" means remove "."
 			config.domainMap[targetDomain];
-
+		console.log(hnsName);
 		if (hnsName == "") {
 			if (request.url == "/analytics") {
 				if (analyticsEnabled) {
