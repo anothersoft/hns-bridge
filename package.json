@@ -20,7 +20,8 @@
     "fastify-autoload": "^3.3.1",
     "fastify-cli": "^2.13.0",
     "fastify-plugin": "^3.0.0",
-    "fastify-sensible": "^3.1.0"
+    "fastify-sensible": "^3.1.0",
+    "hdns": "^0.7.0"
   },
   "devDependencies": {
     "tap": "^15.0.9"

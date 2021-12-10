@@ -1,10 +1,14 @@
 const http = require("http");
+const dns = require("hdns");
+const resolver = new dns.Resolver();
+
 const CacheableLookup = require("cacheable-lookup");
 const config = require("../config.json");
 const cacheable = new CacheableLookup();
 const fs = require("fs");
 cacheable.install(http.globalAgent);
 cacheable.servers = config.nameservers;
+dns.setServers(config.nameservers);
 let path = require("path");
 let analyticsEnabled = fs.existsSync(
 	path.join(__dirname, "../../analytics.json")
@@ -33,6 +37,12 @@ module.exports = async function (fastify, opts) {
 				done(error, undefined);
 			}
 		}
+	);
+	console.log(
+		// cacheable.resolveNs("")
+		dns.resolveNs("findadiscord.com", "NS", (err, addr) => {
+			console.log(1, err, addr);
+		})
 	);
 	fastify.all("*", function (request, reply) {
 		let hostname = request.hostname; //I really need it for debug, don't remove and make PR!!!
@@ -70,14 +80,24 @@ module.exports = async function (fastify, opts) {
 			return reply.redirect(301, require("../config.json").rootRedirect);
 		}
 		let headers = request.headers;
-
+		// console.log(
+		// 	// cacheable.resolveNs("")
+		// 	cacheable.resolveNs("serverrq.", {}, (err, addr) => {
+		// 		console.log(addr);
+		// 	})
+		// );
+		console.log(
+			cacheable.lookup("angrymouse", {}, (err, host) => {
+				console.log(1, err, host, 2);
+			})
+		);
 		delete headers.host;
 		try {
 			let resource = http.request(
 				{
 					hostname: hnsName,
 					headers: headers,
-					lookup: cacheable.lookup,
+					lookup: dns.legacy,
 
 					method: request.method,
 					path: request.url,

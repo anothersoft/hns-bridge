@@ -507,6 +507,27 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
+bcrypto@~5.0.0:
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/bcrypto/-/bcrypto-5.0.4.tgz#711a67450f131fcb517824a4d496ccb83fa96fc9"
+  integrity sha512-5vNoWRFU7cJ3hjhL2O/1Q1U/L/+e2+eDkjUChRAolfrVyeyZcwV3qTTQYn+XA1eUzrZbSZaaH5ZtvJOTwUPh6A==
+  dependencies:
+    bufio "~1.0.6"
+    loady "~0.0.1"
+    nan "^2.14.0"
+
+bfile@~0.2.1:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/bfile/-/bfile-0.2.2.tgz#b0c205cee1ff22a9525304ec51f09195a7afa077"
+  integrity sha512-X205SsJ7zFAnjeJ/pBLqDqF10x/4Su3pBy8UdVKw4hdGJk7t5pLoRi+uG4rPaDAClGbrEfT/06PGUbYiMYKzTg==
+
+bheep@~0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/bheep/-/bheep-0.1.5.tgz#ed6a3da7857c8ebe71d71de9571ddd8f42340889"
+  integrity sha512-0KR5Zi8hgJBKL35+aYzndCTtgSGakOMxrYw2uszd5UmXTIfx3+drPGoETlVbQ6arTdAzSoQYA1j35vbaWpQXBg==
+  dependencies:
+    bsert "~0.0.10"
+
 binary-extensions@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.2.0.tgz#75f502eeaf9ffde42fc98829645be4ea76bd9e2d"
@@ -516,6 +537,14 @@ bind-obj-methods@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/bind-obj-methods/-/bind-obj-methods-3.0.0.tgz#65b66544d9d668d80dfefe2089dd347ad1dbcaed"
   integrity sha512-nLEaaz3/sEzNSyPWRsN9HNsqwk1AUyECtGj+XwGdIi3xABnEqecvXtIJ0wehQXuuER5uZ/5fTs2usONgYjG+iw==
+
+binet@~0.3.5:
+  version "0.3.6"
+  resolved "https://registry.yarnpkg.com/binet/-/binet-0.3.6.tgz#82d9462fa601759956a1f1f1f0f10a5760445f85"
+  integrity sha512-6pm+Gc3uNiiJZEv0k8JDWqQlo9ki/o9UNAkLmr0EGm7hI5MboOJVIOlO1nw3YuDkLHWN78OPsaC4JhRkn2jMLw==
+  dependencies:
+    bs32 "~0.1.5"
+    bsert "~0.0.10"
 
 blessed-contrib@^4.8.18:
   version "4.10.1"
@@ -541,6 +570,23 @@ blessed@^0.1.81:
   version "0.1.81"
   resolved "https://registry.yarnpkg.com/blessed/-/blessed-0.1.81.tgz#f962d687ec2c369570ae71af843256e6d0ca1129"
   integrity sha1-+WLWh+wsNpVwrnGvhDJW5tDKESk=
+
+bns@~0.10.0:
+  version "0.10.3"
+  resolved "https://registry.yarnpkg.com/bns/-/bns-0.10.3.tgz#33d7a9e6982186d60cafdf869ed9d52fe9caa070"
+  integrity sha512-uk0aXOZQ2b2GfR9crCZ19IktBANK038/P5ZhYuS6Qruju8HXyuOvv9NO4JBHE2CG1nIyORk7MqBLolBK8uEvjw==
+  dependencies:
+    bcrypto "~5.0.0"
+    bfile "~0.2.1"
+    bheep "~0.1.5"
+    binet "~0.3.5"
+    bs32 "~0.1.6"
+    bsert "~0.0.10"
+    btcp "~0.1.5"
+    budp "~0.1.6"
+    bufio "~1.0.6"
+  optionalDependencies:
+    unbound "~0.3.5"
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -573,6 +619,28 @@ browserslist@^4.17.5:
     node-releases "^2.0.1"
     picocolors "^1.0.0"
 
+bs32@~0.1.5, bs32@~0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/bs32/-/bs32-0.1.6.tgz#2710cb70da3f55447138181fa645e2c54b1ef6d0"
+  integrity sha512-usjDesQqZ8ihHXOnOEQuAdymBHnJEfSd+aELFSg1jN/V3iAf12HrylHlRJwIt6DTMmXpBDQ+YBg3Q3DIYdhRgQ==
+  dependencies:
+    bsert "~0.0.10"
+
+bsert@~0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/bsert/-/bsert-0.0.10.tgz#231ac82873a1418c6ade301ab5cd9ae385895597"
+  integrity sha512-NHNwlac+WPy4t2LoNh8pXk8uaIGH3NSaIUbTTRXGpE2WEbq0te/tDykYHkFK57YKLPjv/aGHmbqvnGeVWDz57Q==
+
+btcp@~0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/btcp/-/btcp-0.1.5.tgz#f76262415a0f6eaa592cdbb91c8b18386530ac28"
+  integrity sha512-tkrtMDxeJorn5p0KxaLXELneT8AbfZMpOFeoKYZ5qCCMMSluNuwut7pGccLC5YOJqmuk0DR774vNVQLC9sNq/A==
+
+budp@~0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/budp/-/budp-0.1.6.tgz#bbe166cc4842cf8d96754ee29afb1af56f6757c8"
+  integrity sha512-o+a8NPq3DhV91j4nInjht2md6mbU1XL+7ciPltP66rw5uD3KP1m5r8lA94LZVaPKcFdJ0l2HVVzRNxnY26Pefg==
+
 buffer-from@^1.0.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/buffer-from/-/buffer-from-1.1.2.tgz#2b146a6fd72e80b4f55d255f35ed59a3a9a41bd5"
@@ -582,6 +650,11 @@ buffers@~0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/buffers/-/buffers-0.1.1.tgz#b24579c3bed4d6d396aeee6d9a8ae7f5482ab7bb"
   integrity sha1-skV5w77U1tOWru5tmorn9Ugqt7s=
+
+bufio@~1.0.6:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/bufio/-/bufio-1.0.7.tgz#b7f63a1369a0829ed64cc14edf0573b3e382a33e"
+  integrity sha512-bd1dDQhiC+bEbEfg56IdBv7faWa6OipMs/AFFFvtFnB3wAYjlwQpQRZ0pm6ZkgtfL0pILRXhKxOiQj6UzoMR7A==
 
 cacheable-lookup@^6.0.4:
   version "6.0.4"
@@ -1356,6 +1429,14 @@ hasha@^5.0.0:
     is-stream "^2.0.0"
     type-fest "^0.8.0"
 
+hdns@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/hdns/-/hdns-0.7.0.tgz#7d3cfa4dff7f46f2ee63e13a5f24f3c2d56ee5a6"
+  integrity sha512-WLibYJujqFfRaH+nM+JWSY9o3DLxWC5EFP3IQbRl6s8+GwutFaKvz60U/1V7ceaHENhSxAwr684J85HNKmDXjg==
+  dependencies:
+    binet "~0.3.5"
+    bns "~0.10.0"
+
 help-me@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/help-me/-/help-me-3.0.0.tgz#9803c81b5f346ad2bce2c6a0ba01b82257d319e8"
@@ -1695,6 +1776,11 @@ light-my-request@^4.2.0:
     fastify-warning "^0.2.0"
     set-cookie-parser "^2.4.1"
 
+loady@~0.0.1:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/loady/-/loady-0.0.5.tgz#b17adb52d2fb7e743f107b0928ba0b591da5d881"
+  integrity sha512-uxKD2HIj042/HBx77NBcmEPsD+hxCgAtjEWlYNScuUjIsh/62Uyu39GOR68TBR68v+jqDL9zfftCWoUo4y03sQ==
+
 locate-path@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-3.0.0.tgz#dbec3b3ab759758071b58fe59fc41871af21400e"
@@ -1850,6 +1936,11 @@ ms@^2.1.2:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
+
+nan@^2.13.1, nan@^2.14.0:
+  version "2.15.0"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.15.0.tgz#3f34a473ff18e15c1b5626b62903b5ad6e665fee"
+  integrity sha512-8ZtvEnA2c5aYCZYd1cvgdnU6cqwixRoYg70xPLWUws5ORTa/lnw+u4amixRS/Ac5U5mQVgp9pnlSUnbNWFaWZQ==
 
 node-emoji@^1.10.0:
   version "1.11.0"
@@ -2788,6 +2879,14 @@ typedarray-to-buffer@^3.1.5:
   integrity sha512-zdu8XMNEDepKKR+XYOXAVPtWui0ly0NtohUscw+UmaHiAWT8hrV1rr//H6V+0DvJ3OQ19S979M0laLfX8rm82Q==
   dependencies:
     is-typedarray "^1.0.0"
+
+unbound@~0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/unbound/-/unbound-0.3.5.tgz#9f91cfc740b8394562b5accf23a7b5f28bfb21e2"
+  integrity sha512-vnIkZGQswi7SVEnGI+25+oN9hLA7rc40zWi+xnzEwktNIZFtAC8PB/e5FMWgFoXUC4p2Jb/ZRNsZDcv3vivH+g==
+  dependencies:
+    loady "~0.0.1"
+    nan "^2.13.1"
 
 unicode-length@^2.0.2:
   version "2.0.2"
