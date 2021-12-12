@@ -1,6 +1,5 @@
 const http = require("http");
 // const dns = require("hdns");
-const resolver = new dns.Resolver();
 
 const CacheableLookup = require("cacheable-lookup");
 const config = require("../config.json");
