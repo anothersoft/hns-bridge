@@ -38,13 +38,13 @@ module.exports = async function (fastify, opts) {
 			}
 		}
 	);
-	console.log(
-		// cacheable.resolveNs("")
-		dns.resolveNs("findadiscord.com", "NS", (err, addr) => {
-			console.log(1, err, addr);
+	dns
+		.resolve("angrymouse")
+		.then((d) => {
+			console.log(d);
 		})
-	);
-	fastify.all("*", function (request, reply) {
+		.catch((e) => console.error(e));
+	fastify.all("*", async function (request, reply) {
 		let hostname = request.hostname; //I really need it for debug, don't remove and make PR!!!
 		let domainMapArray = Object.keys(config.domainMap);
 		domainMapArray.sort((a, b) => b.length - a.length);
@@ -86,11 +86,7 @@ module.exports = async function (fastify, opts) {
 		// 		console.log(addr);
 		// 	})
 		// );
-		console.log(
-			cacheable.lookup("angrymouse", {}, (err, host) => {
-				console.log(1, err, host, 2);
-			})
-		);
+
 		delete headers.host;
 		try {
 			let resource = http.request(
