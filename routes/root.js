@@ -1,5 +1,5 @@
 const http = require("http");
-const dns = require("hdns");
+// const dns = require("hdns");
 const resolver = new dns.Resolver();
 
 const CacheableLookup = require("cacheable-lookup");
@@ -8,7 +8,7 @@ const cacheable = new CacheableLookup();
 const fs = require("fs");
 cacheable.install(http.globalAgent);
 cacheable.servers = config.nameservers;
-dns.setServers(config.nameservers);
+// dns.setServers(config.nameservers);
 let path = require("path");
 let analyticsEnabled = fs.existsSync(
 	path.join(__dirname, "../../analytics.json")
@@ -38,12 +38,7 @@ module.exports = async function (fastify, opts) {
 			}
 		}
 	);
-	dns
-		.resolve("angrymouse")
-		.then((d) => {
-			console.log(d);
-		})
-		.catch((e) => console.error(e));
+
 	fastify.all("*", async function (request, reply) {
 		let hostname = request.hostname; //I really need it for debug, don't remove and make PR!!!
 		let domainMapArray = Object.keys(config.domainMap);
@@ -93,7 +88,7 @@ module.exports = async function (fastify, opts) {
 				{
 					hostname: hnsName,
 					headers: headers,
-					lookup: dns.legacy,
+					lookup: cacheable.lookup,
 
 					method: request.method,
 					path: request.url,
