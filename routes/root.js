@@ -38,7 +38,7 @@ module.exports = async function (fastify, opts) {
 		}
 	);
 
-	fastify.all("*", async function (request, reply) {
+	fastify.all("*", function (request, reply) {
 		let hostname = request.hostname; //I really need it for debug, don't remove and make PR!!!
 		let domainMapArray = Object.keys(config.domainMap);
 		domainMapArray.sort((a, b) => b.length - a.length);
