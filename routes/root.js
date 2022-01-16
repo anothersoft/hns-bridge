@@ -71,8 +71,8 @@ module.exports = async function (fastify, opts) {
 					return { error: "Analytics disabled" };
 				}
 			}
-			if (require("../config.json").defaultDomain) {
-				hnsName = require("../config.json").defaultDomain;
+			if (config.defaultDomain) {
+				hnsName = config.defaultDomain;
 			} else {
 				return reply.redirect(301, require("../config.json").rootRedirect);
 			}
