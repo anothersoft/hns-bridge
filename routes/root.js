@@ -71,15 +71,13 @@ module.exports = async function (fastify, opts) {
 					return { error: "Analytics disabled" };
 				}
 			}
-			return reply.redirect(301, require("../config.json").rootRedirect);
+			if (require("../config.json").defaultDomain) {
+				hnsName = require("../config.json").defaultDomain;
+			} else {
+				return reply.redirect(301, require("../config.json").rootRedirect);
+			}
 		}
 		let headers = request.headers;
-		// console.log(
-		// 	// cacheable.resolveNs("")
-		// 	cacheable.resolveNs("serverrq.", {}, (err, addr) => {
-		// 		console.log(addr);
-		// 	})
-		// );
 
 		delete headers.host;
 		try {

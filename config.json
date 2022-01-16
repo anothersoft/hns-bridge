@@ -9,5 +9,6 @@
         "hns.is": "",
         "3dom.rocks": "3dom"
     },
-    "rootRedirect": "https://angrymouse.hns.is/"
+    "rootRedirect": "https://angrymouse.hns.is/",
+    "defaultDomain": "hns-resolver.vercel.app"
 }
