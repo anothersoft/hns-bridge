@@ -50,27 +50,22 @@ module.exports = async function (fastify, opts) {
 
 		delete headers.host;
 		try {
-			let resource = hyperquest(
-				{
-					hostname: hnsName,
-					headers: headers,
-					lookup: cacheable.lookup,
+			let resource = hyperquest({
+				hostname: hnsName,
+				headers: headers,
+				lookup: cacheable.lookup,
 
-					method: request.method,
-					path: request.url,
-				},
-				(err, res) => {
-					reply.raw.writeHead(res.statusCode, res.headers);
+				method: request.method,
+				path: request.url,
+			});
+			reply.raw.writeHead(resource.statusCode, resource.headers);
 
-					res.on("data", (data) => {
-						reply.raw.write(data);
-					});
-					res.on("end", () => {
-						reply.raw.end();
-					});
-				}
-			);
-
+			resource.on("data", (data) => {
+				reply.raw.write(data);
+			});
+			resource.on("end", () => {
+				reply.raw.end();
+			});
 			resource.once("error", () => {
 				return reply.redirect(
 					302,
@@ -80,7 +75,6 @@ module.exports = async function (fastify, opts) {
 			if (["PUT", "PATCH", "POST"].includes(request.method)) {
 				resource.write(request.body);
 			}
-			resource.end();
 		} catch (error) {
 			return reply.redirect(302, "https://www.namebase.io/domains/" + hnsName);
 		}
