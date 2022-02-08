@@ -1,3 +1,4 @@
+const http = require("http");
 const hyperquest = require("hyperquest");
 // const dns = require("hdns");
 
