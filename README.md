@@ -3,7 +3,7 @@
 A "quick and dirty" open source alternative to hns.to
 
 ![](https://forthebadge.com/images/badges/powered-by-black-magic.svg)
-![](https://komarev.com/ghpvc/?username=angrymouse&color=ff0000)
+
 ## How to use?
 
 If you want to access [handshake](https://handshake.org) domain, but don't want to install additional software - you're welcome!
