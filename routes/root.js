@@ -4,9 +4,12 @@ const hyperquest = require("hyperquest");
 
 const CacheableLookup = require("cacheable-lookup");
 const config = require("../config.json");
-const cacheable = new CacheableLookup();
+const { Resolver } = require("dns");
+const resolver = new Resolver();
+resolver.setServers(config.nameservers);
+const cacheable = new CacheableLookup({ resolver: resolver });
 const fs = require("fs");
-cacheable.install(http.globalAgent);
+
 cacheable.servers = config.nameservers;
 // dns.setServers(config.nameservers);
 let path = require("path");
