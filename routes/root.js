@@ -60,6 +60,7 @@ module.exports = async function (fastify, opts) {
 					path: request.url,
 				},
 				(err, res) => {
+					console.log(err, res);
 					return;
 				}
 			);
