@@ -1,4 +1,4 @@
-const http = require("http");
+const hyperquest = require("hyperquest");
 // const dns = require("hdns");
 
 const CacheableLookup = require("cacheable-lookup");
@@ -9,21 +9,7 @@ cacheable.install(http.globalAgent);
 cacheable.servers = config.nameservers;
 // dns.setServers(config.nameservers);
 let path = require("path");
-let analyticsEnabled = fs.existsSync(
-	path.join(__dirname, "../../analytics.json")
-);
-let analytics;
-if (analyticsEnabled) {
-	analytics = JSON.parse(
-		fs.readFileSync(path.join(__dirname, "../../analytics.json"), "utf8")
-	);
-	setInterval(() => {
-		fs.writeFileSync(
-			path.join(__dirname, "../../analytics.json"),
-			JSON.stringify(analytics)
-		);
-	}, 60000);
-}
+
 module.exports = async function (fastify, opts) {
 	fastify.addContentTypeParser(
 		"*",
@@ -53,24 +39,6 @@ module.exports = async function (fastify, opts) {
 			config.domainMap[targetDomain];
 
 		if (hnsName == "") {
-			if (request.url == "/analytics") {
-				if (analyticsEnabled) {
-					let overallTraffic = Object.values(analytics).reduce(
-						(pv, cv) => pv + cv,
-						0
-					);
-					return `Overall traffic through this bridge: ` + overallTraffic;
-				} else {
-					return { error: "Analytics disabled" };
-				}
-			}
-			if (request.url == "/analyticsFullJson") {
-				if (analyticsEnabled) {
-					return analytics;
-				} else {
-					return { error: "Analytics disabled" };
-				}
-			}
 			if (config.defaultDomain) {
 				hnsName = config.defaultDomain;
 			} else {
@@ -81,7 +49,7 @@ module.exports = async function (fastify, opts) {
 
 		delete headers.host;
 		try {
-			let resource = http.request(
+			let resource = hyperquest(
 				{
 					hostname: hnsName,
 					headers: headers,
@@ -90,7 +58,7 @@ module.exports = async function (fastify, opts) {
 					method: request.method,
 					path: request.url,
 				},
-				(res) => {
+				(err, res) => {
 					reply.raw.writeHead(res.statusCode, res.headers);
 
 					res.on("data", (data) => {
@@ -98,13 +66,6 @@ module.exports = async function (fastify, opts) {
 					});
 					res.on("end", () => {
 						reply.raw.end();
-						if (analyticsEnabled) {
-							if (analytics[hostname]) {
-								analytics[hostname]++;
-							} else {
-								analytics[hostname] = 1;
-							}
-						}
 					});
 				}
 			);
