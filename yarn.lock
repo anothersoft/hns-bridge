@@ -936,6 +936,11 @@ diff@^4.0.1, diff@^4.0.2:
   resolved "https://registry.yarnpkg.com/diff/-/diff-4.0.2.tgz#60f3aecb89d5fae520c11aa19efc2bb982aade7d"
   integrity sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==
 
+dns2@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/dns2/-/dns2-2.0.1.tgz#030676e6367ba08e78257fad82884b0362e86adf"
+  integrity sha512-jHRTCcS2h/MEQjhcCnOWGENtz5A4RrLoK1YFqlHCejGfK5zYu99C8cxVwTsIY7JUqolhDN8zuGlyqnbEe6azqg==
+
 dotenv@^14.2.0:
   version "14.3.2"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-14.3.2.tgz#7c30b3a5f777c79a3429cb2db358eef6751e8369"
