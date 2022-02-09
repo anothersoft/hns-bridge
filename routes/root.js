@@ -65,18 +65,18 @@ module.exports = async function (fastify, opts) {
 					path: request.url,
 				},
 				(err, res) => {
-					console.log(err, res);
+					reply.raw.writeHead(res.statusCode, res.headers);
+
+					res.on("data", (data) => {
+						reply.raw.write(data);
+					});
+					res.on("end", () => {
+						reply.raw.end();
+					});
 					return;
 				}
 			);
-			reply.raw.writeHead(resource.statusCode, resource.headers);
 
-			resource.on("data", (data) => {
-				reply.raw.write(data);
-			});
-			resource.on("end", () => {
-				reply.raw.end();
-			});
 			resource.once("error", () => {
 				return reply.redirect(
 					302,
