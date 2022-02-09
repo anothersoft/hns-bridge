@@ -73,7 +73,6 @@ module.exports = async function (fastify, opts) {
 					res.on("end", () => {
 						reply.raw.end();
 					});
-					return;
 				}
 			);
 
