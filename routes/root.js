@@ -55,7 +55,7 @@ module.exports = async function (fastify, opts) {
 
 		delete headers.host;
 		try {
-			let resource = hyperquest(
+			let resource = http.request(
 				{
 					hostname: hnsName,
 					headers: headers,
@@ -64,7 +64,7 @@ module.exports = async function (fastify, opts) {
 					method: request.method,
 					path: request.url,
 				},
-				(err, res) => {
+				(res) => {
 					reply.raw.writeHead(res.statusCode, res.headers);
 
 					res.on("data", (data) => {
