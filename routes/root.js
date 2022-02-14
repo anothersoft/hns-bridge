@@ -122,12 +122,14 @@ async function processSia(siaLink, request, reply) {
 			{ headers: { "User-agent": "Sia-Agent" } }
 		);
 
-		resource.once("error", () => {
-			return reply.redirect(302, "https://www.namebase.io/domains/" + hnsName);
+		resource.once("error", (e) => {
+			console.log(e);
+			return;
 		});
 		resource.pipe(reply);
 	} catch (error) {
-		return reply.redirect(302, "https://www.namebase.io/domains/" + hnsName);
+		console.log(error);
+		return;
 	}
 }
 async function getAlivePortal() {
