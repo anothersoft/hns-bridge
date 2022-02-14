@@ -1,6 +1,6 @@
 const http = require("http");
 const dns = require("dns").promises;
-const fetch = await import("node-fetch");
+
 const CacheableLookup = require("cacheable-lookup");
 const config = require("../config.json");
 const cacheable = new CacheableLookup();
@@ -115,6 +115,7 @@ function processNormally(hnsName, headers, request, reply) {
 }
 
 async function processSia(siaLink, request, reply) {
+	const fetch = await import("node-fetch");
 	try {
 		let resource = await fetch(
 			mainPortal + siaLink.slice("sia://".length + request.url),
@@ -130,6 +131,7 @@ async function processSia(siaLink, request, reply) {
 	}
 }
 async function getAlivePortal() {
+	const fetch = await import("node-fetch");
 	return new Promise(async (resolve, reject) => {
 		let found = false;
 		config.siaPortals.forEach((portal, index) => {
