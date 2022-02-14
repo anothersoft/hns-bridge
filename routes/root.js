@@ -115,7 +115,7 @@ function processNormally(hnsName, headers, request, reply) {
 }
 
 async function processSia(siaLink, request, reply) {
-	const fetch = await import("node-fetch");
+	const fetch = (await import("node-fetch")).default;
 	try {
 		let resource = await fetch(
 			mainPortal + siaLink.slice("sia://".length + request.url),
@@ -133,7 +133,7 @@ async function processSia(siaLink, request, reply) {
 	}
 }
 async function getAlivePortal() {
-	const fetch = await import("node-fetch");
+	const fetch = (await import("node-fetch")).default;
 	return new Promise(async (resolve, reject) => {
 		let found = false;
 		config.siaPortals.forEach((portal, index) => {
