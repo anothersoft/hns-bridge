@@ -12,5 +12,6 @@
     },
     "rootRedirect": "https://angrymouse.hns.is/",
     "defaultDomain": "hnsis",
-    "siaNative": true
+    "siaNative": true,
+    "siaPortals": ["http://localhost:9980/skynet/skylink/", "https://siasky.net/", "https://skynetpro.dev/"]
 }

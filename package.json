@@ -22,7 +22,8 @@
     "fastify-cli": "^2.13.0",
     "fastify-plugin": "^3.0.0",
     "fastify-sensible": "^3.1.0",
-    "hyperquest": "angrymouse/hyperquest"
+    "hyperquest": "angrymouse/hyperquest",
+    "node-fetch": "^3.2.0"
   },
   "devDependencies": {
     "tap": "^15.0.9"
