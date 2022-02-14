@@ -1,6 +1,6 @@
 const http = require("http");
 const dns = require("dns").promises;
-const fetch = require("node-fetch");
+const fetch = await import("node-fetch");
 const CacheableLookup = require("cacheable-lookup");
 const config = require("../config.json");
 const cacheable = new CacheableLookup();
