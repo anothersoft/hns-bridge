@@ -118,7 +118,7 @@ async function processSia(siaLink, request, reply) {
 	const fetch = (await import("node-fetch")).default;
 	try {
 		let resource = await fetch(
-			mainPortal + siaLink.slice("sia://".length + request.url),
+			mainPortal + siaLink.slice("sia://".length) + request.url,
 			{ headers: { "User-agent": "Sia-Agent" } }
 		);
 		console.log(resource);
