@@ -11,5 +11,6 @@
         "3dom.rocks": "3dom"
     },
     "rootRedirect": "https://angrymouse.hns.is/",
-    "defaultDomain": "hnsis"
+    "defaultDomain": "hnsis",
+    "siaNative": true
 }

@@ -1,5 +1,5 @@
 const http = require("http");
-// const dns = require("hdns");
+const dns = require("dns").promises;
 
 const CacheableLookup = require("cacheable-lookup");
 const config = require("../config.json");
@@ -7,6 +7,7 @@ const cacheable = new CacheableLookup();
 const fs = require("fs");
 cacheable.install(http.globalAgent);
 cacheable.servers = config.nameservers;
+dns.setServers(config.nameservers);
 // dns.setServers(config.nameservers);
 let path = require("path");
 
@@ -48,6 +49,9 @@ module.exports = async function (fastify, opts) {
 		let headers = request.headers;
 
 		delete headers.host;
+		if (config.siaNative) {
+			console.log(await dns.resolveTxt("_contenthash." + hnsName));
+		}
 		try {
 			let resource = http.request(
 				{
