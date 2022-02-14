@@ -122,10 +122,6 @@ async function processSia(siaLink, request, reply) {
 			{ headers: { "User-agent": "Sia-Agent" } }
 		);
 
-		resource.once("error", (e) => {
-			console.log(e);
-			return;
-		});
 		resource.pipe(reply);
 	} catch (error) {
 		console.log(error);
