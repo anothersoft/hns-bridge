@@ -143,7 +143,7 @@ async function processSia(siaLink, request, reply) {
 		);
 
 		await reply.raw.writeHead(resource.status, resource.headers);
-
+		console.log(resource.status, resource.headers);
 		resource.body.on("data", (data) => {
 			reply.raw.write(data);
 		});
