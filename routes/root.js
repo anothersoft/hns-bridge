@@ -53,6 +53,10 @@ module.exports = async function (fastify, opts) {
 					return reply.redirect(301, require("../config.json").rootRedirect);
 				}
 			}
+			console.log(hnsName);
+			if (hnsName.endsWith(".hns")) {
+				hnsName = hnsName.slice(0, hnsName.length - ".hns".length);
+			}
 			let headers = request.headers;
 
 			delete headers.host;
