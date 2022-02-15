@@ -144,10 +144,10 @@ async function processSia(siaLink, request, reply) {
 
 		reply.raw.writeHead(resource.status, resource.headers);
 
-		resource.on("data", (data) => {
+		resource.body.on("data", (data) => {
 			reply.raw.write(data);
 		});
-		resource.on("end", () => {
+		resource.body.on("end", () => {
 			reply.raw.end();
 		});
 	} catch (error) {
