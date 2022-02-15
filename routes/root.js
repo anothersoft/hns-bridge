@@ -142,7 +142,7 @@ async function processSia(siaLink, request, reply) {
 			{ headers: { "User-agent": "Sia-Agent" } }
 		);
 
-		reply.raw.writeHead(resource.status, resource.headers);
+		await reply.raw.writeHead(resource.status, resource.headers);
 
 		resource.body.on("data", (data) => {
 			reply.raw.write(data);
