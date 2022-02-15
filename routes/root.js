@@ -107,7 +107,6 @@ function processNormally(hnsName, headers, request, reply) {
 				path: request.url,
 			},
 			(res) => {
-				console.log(res.headers);
 				reply.raw.writeHead(res.statusCode, res.headers);
 
 				res.on("data", (data) => {
@@ -140,7 +139,7 @@ async function processSia(siaLink, request, reply) {
 		);
 		console.log(resource.headers);
 		reply.raw.writeHead(resource.status, resource.headers);
-		reply.raw.writeHead;
+		reply.headers(resource.headers);
 		resource.body.pipe(reply.raw);
 	} catch (error) {
 		console.log(error);
