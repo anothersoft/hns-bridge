@@ -137,7 +137,7 @@ async function processSia(siaLink, request, reply) {
 			mainPortal + siaLink.slice("sia://".length) + request.url,
 			{ headers: { "User-agent": "Sia-Agent" } }
 		);
-		console.log(resource);
+		console.log(resource.headers);
 		reply.raw.writeHead(resource.status, resource.headers);
 		resource.body.pipe(reply.raw);
 	} catch (error) {
