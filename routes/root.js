@@ -1,6 +1,7 @@
 const http = require("http");
-const dns = require("dns").promises;
-
+const { Resolver } = require("dns").promises;
+const recursive = new Resolver();
+const root = new Resolver();
 const CacheableLookup = require("cacheable-lookup");
 const config = require("../config.json");
 const cacheable = new CacheableLookup();
@@ -9,7 +10,8 @@ cacheable.install(http.globalAgent);
 let mainPortal = config.siaPortals[0];
 
 cacheable.servers = config.nameservers;
-dns.setServers(config.nameservers);
+recursive.setServers(config.nameservers);
+root.setServers(config.rootNameserver);
 // dns.setServers(config.nameservers);
 let path = require("path");
 setInterval(async () => {
@@ -55,24 +57,33 @@ module.exports = async function (fastify, opts) {
 
 			delete headers.host;
 			if (config.siaNative) {
-				dns
-					.resolveTxt("_contenthash." + hnsName)
-					.then((records) => {
-						if (records.length < 1) {
-							processNormally(hnsName, headers, request, reply);
-						} else {
-							let siaRecord = records[0][0];
-							if (!siaRecord || !siaRecord.startsWith("sia://")) {
+				try {
+					let rootTxtRecords = root.resolveTxt(hnsName);
+					if (rootTxtRecords.length < 0) {
+						throw "No records";
+					} else {
+						console.log(rootTxtRecords);
+					}
+				} catch (e) {
+					recursive
+						.resolveTxt("_contenthash." + hnsName)
+						.then((records) => {
+							if (records.length < 1) {
 								processNormally(hnsName, headers, request, reply);
 							} else {
-								processSia(siaRecord, request, reply);
+								let siaRecord = records[0][0];
+								if (!siaRecord || !siaRecord.startsWith("sia://")) {
+									processNormally(hnsName, headers, request, reply);
+								} else {
+									processSia(siaRecord, request, reply);
+								}
 							}
-						}
-					})
-					.catch((err) => {
-						processNormally(hnsName, headers, request, reply);
-						return;
-					});
+						})
+						.catch((err) => {
+							processNormally(hnsName, headers, request, reply);
+							return;
+						});
+				}
 			} else {
 				processNormally(hnsName, headers, request, reply);
 			}
