@@ -11,7 +11,7 @@ let mainPortal = config.siaPortals[0];
 
 cacheable.servers = config.nameservers;
 recursive.setServers(config.nameservers);
-root.setServers(config.rootNameserver);
+root.setServers([config.rootNameserver]);
 // dns.setServers(config.nameservers);
 let path = require("path");
 setInterval(async () => {
