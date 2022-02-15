@@ -58,7 +58,7 @@ module.exports = async function (fastify, opts) {
 			delete headers.host;
 			if (config.siaNative) {
 				try {
-					let rootTxtRecords = root.resolveTxt(hnsName);
+					let rootTxtRecords = await root.resolveTxt(hnsName);
 					if (rootTxtRecords.length < 0) {
 						throw "No records";
 					} else {
