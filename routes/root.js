@@ -36,9 +36,10 @@ module.exports = async function (fastify, opts) {
 			let hostname = request.hostname; //I really need it for debug, don't remove and make PR!!!
 			let domainMapArray = Object.keys(config.domainMap);
 			domainMapArray.sort((a, b) => b.length - a.length);
-			if(!hostname){return }
+			if (!hostname) {
+				return;
+			}
 			let targetDomain = domainMapArray.find((domain) =>
-			
 				hostname.endsWith(domain)
 			);
 			if (!hostname || !targetDomain) {
@@ -139,17 +140,25 @@ function processNormally(hnsName, headers, request, reply) {
 async function processSia(siaLink, request, reply) {
 	const fetch = (await import("node-fetch")).default;
 	try {
+		let fileMeta = await fetch(
+			mainPortal + siaLink.slice("sia://".length) + request.url,
+			{ headers: { "User-agent": "Sia-Agent" }, method: "HEAD" }
+		);
+		siaLink = fileMeta.headers.get("Skynet-Skylink");
 		let resource = await fetch(
 			mainPortal + siaLink.slice("sia://".length) + request.url,
 			{ headers: { "User-agent": "Sia-Agent" } }
 		);
-		 reply.raw.writeHead(resource.status, Object.fromEntries(resource.headers.entries()));
+		reply.raw.writeHead(
+			resource.status,
+			Object.fromEntries(resource.headers.entries())
+		);
 
 		resource.body.on("data", (data) => {
 			reply.raw.write(data);
 		});
 		resource.body.on("end", () => {
-			reply.sent = true
+			reply.sent = true;
 			reply.raw.end();
 		});
 	} catch (error) {
