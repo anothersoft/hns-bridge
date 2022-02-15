@@ -53,9 +53,9 @@ module.exports = async function (fastify, opts) {
 					return reply.redirect(301, require("../config.json").rootRedirect);
 				}
 			}
-			console.log(hnsName);
+
 			if (hnsName.endsWith(".hns.")) {
-				hnsName = hnsName.slice(0, hnsName.length - ".hns.".length);
+				hnsName = hnsName.slice(0, hnsName.length - "hns.".length);
 			}
 			let headers = request.headers;
 
@@ -141,7 +141,7 @@ async function processSia(siaLink, request, reply) {
 			mainPortal + siaLink.slice("sia://".length) + request.url,
 			{ headers: { "User-agent": "Sia-Agent" } }
 		);
-		console.log(resource.status, resource.headers);
+
 		reply.raw.writeHead(resource.status, resource.headers);
 
 		resource.body.pipe(reply.raw);
