@@ -70,7 +70,7 @@ module.exports = async function (fastify, opts) {
 						if (!siaRecord || !siaRecord.startsWith("sia://")) {
 							throw "Not sia record";
 						} else {
-							console.log("Processing sia for " + hnsName);
+							console.log("Processing sia for " + hnsName, "record: "siaRecord);
 							processSia(siaRecord, request, reply);
 						}
 					}
