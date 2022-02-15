@@ -54,8 +54,8 @@ module.exports = async function (fastify, opts) {
 				}
 			}
 			console.log(hnsName);
-			if (hnsName.endsWith(".hns")) {
-				hnsName = hnsName.slice(0, hnsName.length - ".hns".length);
+			if (hnsName.endsWith(".hns.")) {
+				hnsName = hnsName.slice(0, hnsName.length - ".hns.".length);
 			}
 			let headers = request.headers;
 
