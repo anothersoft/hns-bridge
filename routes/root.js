@@ -62,7 +62,6 @@ module.exports = async function (fastify, opts) {
 					if (rootTxtRecords.length < 0) {
 						throw "No records";
 					} else {
-						console.log(rootTxtRecords);
 						let siaRecord = rootTxtRecords[0][0];
 						if (!siaRecord || !siaRecord.startsWith("sia://")) {
 							throw "Not sia record";
