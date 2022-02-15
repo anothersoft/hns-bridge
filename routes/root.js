@@ -36,7 +36,9 @@ module.exports = async function (fastify, opts) {
 			let hostname = request.hostname; //I really need it for debug, don't remove and make PR!!!
 			let domainMapArray = Object.keys(config.domainMap);
 			domainMapArray.sort((a, b) => b.length - a.length);
+			if(!hostname){return }
 			let targetDomain = domainMapArray.find((domain) =>
+			
 				hostname.endsWith(domain)
 			);
 			if (!hostname || !targetDomain) {
@@ -141,13 +143,13 @@ async function processSia(siaLink, request, reply) {
 			mainPortal + siaLink.slice("sia://".length) + request.url,
 			{ headers: { "User-agent": "Sia-Agent" } }
 		);
+		 reply.raw.writeHead(resource.status, Object.fromEntries(resource.headers.entries()));
 
-		await reply.raw.writeHead(resource.status, resource.headers);
-		console.log(resource.status, resource.headers);
 		resource.body.on("data", (data) => {
 			reply.raw.write(data);
 		});
 		resource.body.on("end", () => {
+			reply.sent = true
 			reply.raw.end();
 		});
 	} catch (error) {
