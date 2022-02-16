@@ -37,7 +37,7 @@ module.exports = async function (fastify, opts) {
 			let domainMapArray = Object.keys(config.domainMap);
 			domainMapArray.sort((a, b) => b.length - a.length);
 			if (!hostname) {
-				return;
+				return reply.redirect(301, require("../config.json").rootRedirect);
 			}
 			let targetDomain = domainMapArray.find((domain) =>
 				hostname.endsWith(domain)
@@ -140,10 +140,10 @@ function processNormally(hnsName, headers, request, reply) {
 async function processSia(siaLink, request, reply) {
 	const fetch = (await import("node-fetch")).default;
 	try {
-		let fileMeta = await fetch(
-			mainPortal + siaLink.slice("sia://".length) + request.url,
-			{ headers: { "User-agent": "Sia-Agent" }, method: "HEAD" }
-		);
+		let fileMeta = await fetch(mainPortal + siaLink.slice("sia://".length), {
+			headers: { "User-agent": "Sia-Agent" },
+			method: "HEAD",
+		});
 
 		siaLink = fileMeta.headers.get("skynet-skylink");
 		let resource = await fetch(mainPortal + siaLink + request.url, {
