@@ -144,12 +144,11 @@ async function processSia(siaLink, request, reply) {
 			mainPortal + siaLink.slice("sia://".length) + request.url,
 			{ headers: { "User-agent": "Sia-Agent" }, method: "HEAD" }
 		);
-		console.log(fileMeta.headers);
+
 		siaLink = fileMeta.headers.get("skynet-skylink");
-		let resource = await fetch(
-			mainPortal + siaLink.slice("sia://".length) + request.url,
-			{ headers: { "User-agent": "Sia-Agent" } }
-		);
+		let resource = await fetch(mainPortal + siaLink + request.url, {
+			headers: { "User-agent": "Sia-Agent" },
+		});
 		reply.raw.writeHead(
 			resource.status,
 			Object.fromEntries(resource.headers.entries())
