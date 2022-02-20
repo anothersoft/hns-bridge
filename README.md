@@ -43,3 +43,5 @@ Also thanks for [**tiMaxal/**](https://timaxal.hns.is) for buying all of my chea
 And [@HNSOSS](https://twitter.com/HNSOSS) for giving grants and supporting all developers of HNS ecosystem!
 
 And [Inner I Net Company/](https://innerinetcompany.com) for donations!
+
+And [ecosysmaat.eth](https://ecosysmaat.eth.link/) for donations and just being nice!
