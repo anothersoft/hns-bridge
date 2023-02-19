@@ -1,22 +1,38 @@
-const http = require("http");
-const { Resolver } = require("dns").promises;
-const recursive = new Resolver();
-const root = new Resolver();
-const CacheableLookup = require("cacheable-lookup");
-const config = require("../config.json");
-const cacheable = new CacheableLookup();
-const fs = require("fs");
-cacheable.install(http.globalAgent);
-let mainPortal = config.siaPortals[0];
 
-cacheable.servers = config.nameservers;
-recursive.setServers(config.nameservers);
-root.setServers([config.rootNameserver]);
+const http = require("http");
+const { RecursiveResolver, StubResolver } = require('bns-plus');
+const dns = require("dns")
+const config = require("../config.json");
+const resolver = new StubResolver({
+	tcp: true,
+	inet6: true,
+	edns: true,
+	dnssec: true
+});
+// console.log(dns.Resolver)
+// let Resolver = dns.Resolver;
+// const recursive = new Resolver();
+
+resolver.setServers(
+
+	config.nameservers
+);
+
+
+
+// const lru = new QuickLRU({ maxSize: 1000 });
+// const cacheable = { lookup: recursive.lookup }
+
+
+const fs = require("fs");
+
+
+// cacheable.servers = config.nameservers;
+// recursive.setServers(config.nameservers);
+
 // dns.setServers(config.nameservers);
 let path = require("path");
-setInterval(async () => {
-	mainPortal = await getAlivePortal();
-}, 100000);
+
 module.exports = async function (fastify, opts) {
 	fastify.addContentTypeParser(
 		"*",
@@ -32,7 +48,9 @@ module.exports = async function (fastify, opts) {
 	);
 
 	fastify.all("*", function (request, reply) {
+		// return "On maintainance"
 		(async () => {
+
 			let hostname = request.hostname; //I really need it for debug, don't remove and make PR!!!
 			let domainMapArray = Object.keys(config.domainMap);
 			domainMapArray.sort((a, b) => b.length - a.length);
@@ -48,7 +66,7 @@ module.exports = async function (fastify, opts) {
 			let hnsName =
 				hostname.slice(0, hostname.length - targetDomain.length) + //"-1" means remove "."
 				config.domainMap[targetDomain];
-
+			if (["av4.us.av4.us.", "central.p101.", "bluecherry."].includes(hnsName)) { return "blocked" }
 			if (hnsName == "") {
 				if (config.defaultDomain) {
 					hnsName = config.defaultDomain;
@@ -62,53 +80,21 @@ module.exports = async function (fastify, opts) {
 			}
 			let headers = request.headers;
 
-			delete headers.host;
-			if (config.siaNative) {
-				try {
-					let rootTxtRecords = await root.resolveTxt(hnsName);
-					if (rootTxtRecords.length < 0) {
-						throw "No records";
-					} else {
-						let siaRecord = rootTxtRecords[0][0];
-						if (!siaRecord || !siaRecord.startsWith("sia://")) {
-							throw "Not sia record";
-						} else {
-							processSia(siaRecord, request, reply);
-						}
-					}
-				} catch (e) {
-					recursive
-						.resolveTxt("_contenthash." + hnsName)
-						.then((records) => {
-							if (records.length < 1) {
-								processNormally(hnsName, headers, request, reply);
-							} else {
-								let siaRecord = records[0][0];
-								if (!siaRecord || !siaRecord.startsWith("sia://")) {
-									processNormally(hnsName, headers, request, reply);
-								} else {
-									processSia(siaRecord, request, reply);
-								}
-							}
-						})
-						.catch((err) => {
-							processNormally(hnsName, headers, request, reply);
-							return;
-						});
-				}
-			} else {
-				processNormally(hnsName, headers, request, reply);
-			}
+			delete headers.host
+			processNormally(hnsName, headers, request, reply);
+
 		})();
 	});
 };
-function processNormally(hnsName, headers, request, reply) {
+async function processNormally(hnsName, headers, request, reply) {
 	try {
+
+		// console.log(hnsName, await cacheable.lookupAsync(hnsName))
 		let resource = http.request(
 			{
-				hostname: hnsName,
-				headers: headers,
-				lookup: cacheable.lookup,
+				hostname: await asyncHandshakeResolve(hnsName),
+				headers: { ...headers, "Host": hnsName },
+				lookup: handshakeResolve,
 
 				method: request.method,
 				path: request.url,
@@ -125,7 +111,8 @@ function processNormally(hnsName, headers, request, reply) {
 			}
 		);
 
-		resource.once("error", () => {
+		resource.once("error", (e) => {
+			console.log(e)
 			return reply.redirect(302, "https://www.namebase.io/domains/" + hnsName);
 		});
 		if (["PUT", "PATCH", "POST"].includes(request.method)) {
@@ -133,70 +120,21 @@ function processNormally(hnsName, headers, request, reply) {
 		}
 		resource.end();
 	} catch (error) {
+		console.log(error)
 		return reply.redirect(302, "https://www.namebase.io/domains/" + hnsName);
 	}
 }
+function handshakeResolve(name, type, cb) {
+	(async () => {
 
-async function processSia(siaLink, request, reply) {
-	const fetch = (await import("node-fetch")).default;
-	try {
-		let fileMeta = await fetch(mainPortal + siaLink.slice("sia://".length), {
-			headers: { "User-agent": "Sia-Agent" },
-			method: "HEAD",
-		});
-
-		siaLink = fileMeta.headers.get("skynet-skylink");
-		let resource = await fetch(mainPortal + siaLink + request.url, {
-			headers: { "User-agent": "Sia-Agent" },
-		});
-		reply.raw.writeHead(
-			resource.status,
-			Object.fromEntries(resource.headers.entries())
-		);
-
-		resource.body.on("data", (data) => {
-			reply.raw.write(data);
-		});
-		resource.body.on("end", () => {
-			reply.sent = true;
-			reply.raw.end();
-		});
-	} catch (error) {
-		console.log(error);
-		return;
-	}
+		const res = await resolver.lookup(name, "A");
+		cb(res.answer.find(rsp => rsp.type == 1)?.data?.address)
+	})()
 }
-async function getAlivePortal() {
-	const fetch = (await import("node-fetch")).default;
-	return new Promise(async (resolve, reject) => {
-		let found = false;
-		config.siaPortals.forEach((portal, index) => {
-			setTimeout(async () => {
-				if (found) {
-					return;
-				} else {
-					try {
-						let resource = await (
-							await fetch(
-								portal + "AACo6KGldohjcBP39JUxFEWWMwiTTV_wQfrd5z28gUoYxA",
-								{
-									headers: {
-										"User-agent": "Sia-Agent",
-									},
-								}
-							)
-						).text();
-						if (resource == "test") {
-							found = true;
-							resolve(portal);
-						} else {
-							return;
-						}
-					} catch (e) {
-						return;
-					}
-				}
-			}, index * 200);
-		});
-	});
+async function asyncHandshakeResolve(name, type, cb) {
+
+
+	const res = await resolver.lookup(name, "A");
+	return res.answer.find(rsp => rsp.type == 1)?.data?.address
+
 }

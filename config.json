@@ -1,18 +1,18 @@
 {
     "nameservers": [
-        "127.0.0.1:5341",
-        "103.196.38.38"
-
+        "127.0.0.1:5341"
+       
 
     ],
     "port": 8888,
     "domainMap": {
         "hns.is": "",
-        "3dom.rocks": "3dom"
+        "3dom.rocks": "3dom",
+        "stargaze.name":"stars"
     },
-    "rootRedirect": "https://angrymouse.hns.is/",
+    "rootRedirect": "https://hns-resolver.vercel.app/",
     "defaultDomain": "hnsis",
-    "siaNative": true,
+    "siaNative": false,
     "siaPortals": ["https://skynetpro.dev/", "http://localhost:9980/skynet/skylink/", "https://siasky.net/"],
-    "rootNameserver": "127.0.0.1:5369"
+    "rootNameserver": "127.0.0.1:5340"
 }
